@@ -1,9 +1,0 @@
-import{n as e,t}from"./common-BACNKcaS.js";document.addEventListener(`DOMContentLoaded`,()=>{t(),e();let n=new IntersectionObserver(e=>{e.forEach(e=>{if(!e.isIntersecting)return;let t=e.target,r=parseInt(t.dataset.target),i=performance.now(),a=e=>{let n=Math.min((e-i)/2e3,1),o=1-(1-n)**3;t.textContent=Math.floor(o*r).toLocaleString()+`+`,n<1&&requestAnimationFrame(a)};requestAnimationFrame(a),n.unobserve(t)})},{threshold:.5});document.querySelectorAll(`.stat-number`).forEach(e=>n.observe(e));let r=document.querySelectorAll(`.filter-btn`),i=document.querySelectorAll(`.portfolio-item`);r.forEach(e=>{e.addEventListener(`click`,()=>{r.forEach(e=>e.classList.remove(`active`)),e.classList.add(`active`);let t=e.dataset.filter;i.forEach(e=>{let n=t===`all`||e.dataset.category===t;e.style.display=n?``:`none`,n&&(e.style.opacity=`0`,setTimeout(()=>e.style.opacity=`1`,50))})})});let a=document.getElementById(`contactForm`);a&&a.addEventListener(`submit`,e=>{e.preventDefault();let t=a.querySelector(`#name`).value.trim(),n=a.querySelector(`#email`).value.trim(),r=a.querySelector(`#organization`).value.trim(),i=a.querySelector(`#service`),o=i.options[i.selectedIndex]?.text||``,s=a.querySelector(`#message`).value.trim(),c=`Website Enquiry – ${t}${r?` (`+r+`)`:``}`,l=`Hi SJ Coders Team,
-
-Name: ${t}
-Email: ${n}
-Organization: ${r||`N/A`}
-Service Interest: ${o||`N/A`}
-
-Message:
-${s}`;window.location.href=`mailto:info@sjcoders.com?subject=${encodeURIComponent(c)}&body=${encodeURIComponent(l)}`;let u=a.querySelector(`button[type="submit"]`);u.textContent=`Opening Email App...`,u.style.background=`linear-gradient(135deg, #14b8a6, #06b6d4)`,setTimeout(()=>{u.innerHTML=`Send Message <i data-lucide="send"></i>`,u.style.background=``,window.lucide&&lucide.createIcons()},3e3),a.reset()})});
