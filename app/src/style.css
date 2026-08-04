@@ -1139,6 +1139,11 @@ select {
   color: var(--accent);
 }
 
+.contact-card-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
 .contact-card h4 {
   font-weight: 600;
   font-size: 0.95rem;
@@ -1319,6 +1324,11 @@ select {
 .footer-socials a:hover {
   background: var(--accent);
   color: #fff;
+}
+
+.footer-socials svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* ===== RESPONSIVE ===== */
