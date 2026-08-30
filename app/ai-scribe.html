@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SJ Coders AI Scribe — AI-Powered Clinical Documentation & EHR Integration</title>
+  <meta name="description"
+    content="Turn clinical conversations into structured documentation. SJ Coders AI Scribe assists healthcare professionals by creating draft SOAP notes, summaries, and EHR integration with clinician approval.">
+  <meta property="og:title" content="SJ Coders AI Scribe — Turn Clinical Conversations into Structured Notes">
+  <meta property="og:description"
+    content="Transform ambient clinical dialogues into draft SOAP notes for fast review, editing, and secure EHR transmission.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/src/style.css">
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+</head>
+
+<body class="theme-clinical">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="/index.html#hero" class="logo">
+        <img src="/images/logo.png" alt="SJ Coders" class="logo-img">
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="/index.html#hero">Home</a>
+        <a href="/index.html#about">About</a>
+        <a href="/index.html#solutions">Solutions</a>
+        <a href="/index.html#products" class="active">Products</a>
+        <a href="/careers.html">Careers</a>
+        <a href="/index.html#contact">Contact</a>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PRODUCT HERO -->
+  <section class="hero" style="min-height: 80vh; padding-top: 140px; padding-bottom: 60px;">
+    <div class="hero-bg"><img src="/images/hero-bg.png" alt="Clinical AI background"></div>
+    <div class="container">
+      <div class="hero-content" style="max-width: 720px; margin: 0 auto; text-align: center;">
+        <div style="margin-bottom: 24px;">
+          <a href="/index.html#products" class="btn-back-link"><i data-lucide="arrow-left"></i> Back to Homepage</a>
+        </div>
+        <div class="hero-badge" style="justify-content: center; margin: 0 auto 20px;">
+          <i data-lucide="sparkles"></i> SJ Coders AI Scribe
+        </div>
+        <h1 style="font-size: clamp(2.4rem, 4.5vw, 3.6rem);">Turn Clinical Conversations into <span class="gradient-text">Structured Documentation</span></h1>
+        <p style="margin: 20px auto 30px; font-size: 1.1rem;">
+          AI Scribe helps healthcare professionals reduce documentation effort by transforming ambient clinical conversations into structured clinical notes that clinicians can review, edit, approve, and securely send to their EHR.
+        </p>
+
+        <!-- HUMAN IN THE LOOP NOTICE -->
+        <div style="background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: var(--radius-md); padding: 14px 20px; max-width: 680px; margin: 0 auto 32px; text-align: left; display: flex; gap: 12px; align-items: flex-start;">
+          <i data-lucide="shield-alert" style="color: var(--accent-violet); min-width: 22px; margin-top: 2px;"></i>
+          <p style="font-size: 0.88rem; color: var(--text-primary); margin: 0; line-height: 1.5;">
+            <strong>Clinician Control & Safety Notice:</strong> AI Scribe does not make automated clinical decisions. All AI-generated notes remain draft suggestions until reviewed, edited, and explicitly approved by the authorized clinician.
+          </p>
+        </div>
+
+        <div class="hero-buttons" style="justify-content: center;">
+          <a href="/index.html#products" class="btn btn-outline"><i data-lucide="arrow-left"></i> Back to Products</a>
+          <a href="/index.html#contact" class="btn btn-primary">Talk to Our Team <i data-lucide="message-square"></i></a>
+          <a href="#interactive-demo" class="btn btn-outline">See Live Demo <i data-lucide="play-circle"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE DEMO SECTION -->
+  <section class="section" id="interactive-demo" style="background: var(--bg-secondary);">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 40px;">
+        <div class="section-label" style="justify-content: center;">Live Interactive Workflow</div>
+        <h2 class="section-title">See How <span class="gradient-text">AI Scribe</span> Works</h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Experience the end-to-end flow from doctor-patient conversation to clinician approval and EHR sync.</p>
+      </div>
+
+      <!-- WORKFLOW DEMO CONTAINER -->
+      <div class="product-demo-container" style="max-width: 960px; margin: 0 auto;">
+        <!-- Mockup Frame -->
+        <div class="mockup-browser" id="aiScribeDetailMockup">
+          <div class="mockup-header">
+            <div class="mockup-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="mockup-title">
+              <i data-lucide="stethoscope"></i> SJ Coders AI Scribe — Patient Consultation #4092
+            </div>
+            <div class="mockup-status-pill" id="scribeDetailStatusPill">
+              <span class="status-dot"></span> <span id="scribeDetailStatusText">Ready</span>
+            </div>
+          </div>
+          <div class="mockup-body">
+            <!-- Screen 1: Start -->
+            <div class="scribe-step-view active" data-step="1">
+              <div class="consultation-init-card">
+                <div class="patient-info-meta">
+                  <div class="patient-avatar"><i data-lucide="user"></i></div>
+                  <div>
+                    <h4>Patient: Rahul Verma (M, 42)</h4>
+                    <p>Consultation Room 3 • Chief Complaint: Fever & Headache</p>
+                  </div>
+                </div>
+                <div class="init-action-area">
+                  <button class="btn btn-primary btn-start-scribe" id="detailStartScribeBtn">
+                    <i data-lucide="mic"></i> Start AI Scribe
+                  </button>
+                  <span class="privacy-tag"><i data-lucide="lock"></i> HIPAA compliant & encrypted live capture</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 2: Recording -->
+            <div class="scribe-step-view" data-step="2">
+              <div class="recording-header">
+                <div class="rec-badge">
+                  <span class="rec-dot"></span> Recording Live
+                </div>
+                <div class="timer-display" id="detailRecTimer">00:02:14</div>
+                <div class="waveform-container">
+                  <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                  <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                </div>
+              </div>
+              <div class="transcript-box">
+                <div class="transcript-line doc-line">
+                  <span class="speaker">Doctor:</span> "Good morning, Rahul. What brings you in today?"
+                </div>
+                <div class="transcript-line pat-line">
+                  <span class="speaker">Patient:</span> "I have been experiencing fever and headache. It started about three days ago..."
+                </div>
+                <div class="transcript-line doc-line">
+                  <span class="speaker">Doctor:</span> "Any chills, body ache, or difficulty sleeping?"
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 3: Generating -->
+            <div class="scribe-step-view" data-step="3">
+              <div class="ai-processing-box">
+                <div class="ai-spinner">
+                  <i data-lucide="sparkles"></i>
+                </div>
+                <h3>Generating Clinical Note...</h3>
+                <p>Analyzing conversation, filtering clinical entities & structuring SOAP draft</p>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill" id="detailGenProgress"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 4: SOAP Review -->
+            <div class="scribe-step-view" data-step="4">
+              <div class="soap-review-card">
+                <div class="soap-header">
+                  <span class="badge-draft"><i data-lucide="alert-circle"></i> AI Generated — Clinician Review Required</span>
+                  <div class="soap-actions">
+                    <button class="btn-xs btn-outline-xs"><i data-lucide="edit-3"></i> Edit</button>
+                    <button class="btn-xs btn-outline-xs"><i data-lucide="refresh-cw"></i> Regenerate</button>
+                    <button class="btn-xs btn-approve" id="detailApproveBtn"><i data-lucide="check"></i> Approve Note</button>
+                  </div>
+                </div>
+                <div class="soap-content-grid">
+                  <div class="soap-section">
+                    <h5>SUBJECTIVE</h5>
+                    <p>Patient reports fever and headache for approximately three days. Accompanied by mild fatigue.</p>
+                  </div>
+                  <div class="soap-section">
+                    <h5>OBJECTIVE</h5>
+                    <p>Temp: 101.2°F, BP: 120/80 mmHg, HR: 78 bpm. Throat clear, no neck stiffness noted.</p>
+                  </div>
+                  <div class="soap-section">
+                    <h5>ASSESSMENT</h5>
+                    <p>[Generated draft] Acute febrile illness, likely viral origin.</p>
+                  </div>
+                  <div class="soap-section">
+                    <h5>PLAN</h5>
+                    <p>[Generated draft] Paracetamol 650mg TDS as needed. Hydration and rest. Follow up in 3 days if unresolved.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screen 5: Approved & EHR Sent -->
+            <div class="scribe-step-view" data-step="5">
+              <div class="ehr-success-box">
+                <div class="success-icon-badge">
+                  <i data-lucide="check-circle-2"></i>
+                </div>
+                <h3>Clinician Approved!</h3>
+                <p class="ehr-status-line"><i data-lucide="send"></i> Sent to EHR (Bahmni / OpenMRS FHIR)</p>
+                <div class="ehr-meta-pill">
+                  <span>Encounter ID: #ENC-98421</span>
+                  <span>Clinician: Dr. A. Kulkarni (MD)</span>
+                  <span>Sync Time: Just Now</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Workflow Indicators -->
+        <div class="workflow-steps-bar" id="detailAIScribeWorkflow">
+          <div class="workflow-step active" data-step="1">
+            <div class="step-num">1</div>
+            <div class="step-text">Record Consultation</div>
+          </div>
+          <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
+          <div class="workflow-step" data-step="2">
+            <div class="step-num">2</div>
+            <div class="step-text">Transcribe</div>
+          </div>
+          <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
+          <div class="workflow-step" data-step="3">
+            <div class="step-num">3</div>
+            <div class="step-text">Generate</div>
+          </div>
+          <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
+          <div class="workflow-step" data-step="4">
+            <div class="step-num">4</div>
+            <div class="step-text">Review & Approve</div>
+          </div>
+          <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
+          <div class="workflow-step" data-step="5">
+            <div class="step-num">5</div>
+            <div class="step-text">Send to EHR</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY CAPABILITIES -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 48px;">
+        <div class="section-label" style="justify-content: center;">Comprehensive Clinical Suite</div>
+        <h2 class="section-title">Built for Modern <span class="gradient-text">Healthcare Workflows</span></h2>
+        <p class="section-subtitle" style="margin: 0 auto;">Designed alongside doctors to automate administrative burdens while keeping human expertise at the forefront.</p>
+      </div>
+
+      <div class="capabilities-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+        <div class="glass-card" style="padding: 28px;">
+          <div class="solution-icon"><i data-lucide="file-text"></i></div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">SOAP Notes</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Automated Subjective, Objective, Assessment, and Plan draft generation with custom clinical templates.</p>
+        </div>
+        <div class="glass-card" style="padding: 28px;">
+          <div class="solution-icon"><i data-lucide="clipboard"></i></div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Clinical Summaries</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Instant concise summaries of complex multi-specialty patient consultations.</p>
+        </div>
+        <div class="glass-card" style="padding: 28px;">
+          <div class="solution-icon"><i data-lucide="activity"></i></div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Treatment Plans</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Structured draft recommendation plans aligned with clinical protocols.</p>
+        </div>
+        <div class="glass-card" style="padding: 28px;">
+          <div class="solution-icon"><i data-lucide="pill"></i></div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Prescription Drafts</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Extract spoken drug dosages, frequencies, and duration into reviewable e-prescriptions.</p>
+        </div>
+        <div class="glass-card" style="padding: 28px;">
+          <div class="solution-icon"><i data-lucide="flask-conical"></i></div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Lab & Referral Drafts</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Draft diagnostic order forms and specialist referral letters automatically.</p>
+        </div>
+        <div class="glass-card" style="padding: 28px;">
+          <div class="solution-icon"><i data-lucide="cpu"></i></div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Multiple AI Models</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Supports specialized medical LLMs and custom fine-tuned local models for data privacy.</p>
+        </div>
+        <div class="glass-card" style="padding: 28px;">
+          <div class="solution-icon"><i data-lucide="network"></i></div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">EHR Integration</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Direct bi-directional sync via API, browser extensions, or native HL7 listeners.</p>
+        </div>
+        <div class="glass-card" style="padding: 28px;">
+          <div class="solution-icon"><i data-lucide="shield-check"></i></div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 8px;">Bahmni / OpenMRS / FHIR</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">Native support for open health standards including HL7 FHIR release 4 and OpenMRS data structures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="background: var(--bg-secondary); border-top: 1px solid var(--border-color);">
+    <div class="container" style="text-align: center; max-width: 700px;">
+      <h2 class="section-title">Ready to Streamline Your <span class="gradient-text">Clinical Documentation</span>?</h2>
+      <p class="section-subtitle" style="margin: 0 auto 32px;">Talk with our health informatics engineers to request a personalized demo or pilot for your hospital or clinic network.</p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="/index.html#contact" class="btn btn-primary">Schedule Demo <i data-lucide="calendar"></i></a>
+        <a href="mailto:info@sjcoders.com" class="btn btn-outline">Contact Sales <i data-lucide="mail"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/index.html#hero" class="logo">
+            <img src="/images/logo.png" alt="SJ Coders" class="logo-img">
+          </a>
+          <p>A healthcare-focused technology company creating a better world through intelligent health information systems.</p>
+        </div>
+        <div>
+          <h4>Solutions</h4>
+          <ul>
+            <li><a href="/ai-scribe.html">AI Scribe</a></li>
+            <li><a href="/index.html#solutions">Bahmni EMR</a></li>
+            <li><a href="/index.html#solutions">OpenMRS</a></li>
+            <li><a href="/index.html#solutions">OpenELIS</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Products</h4>
+          <ul>
+            <li><a href="/ai-scribe.html">SJ Coders AI Scribe</a></li>
+            <li><a href="/aaplipuja.html">AapliPuja Platform</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/index.html#about">About Us</a></li>
+            <li><a href="/careers.html">Careers</a></li>
+            <li><a href="/index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SJ Coders Software Solutions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
