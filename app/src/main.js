@@ -142,6 +142,15 @@ ${message}`;
       }
     }
 
+    // Allow clicking "Start AI Scribe" button inside mockup
+    const startBtn = mockupEl.querySelector('.btn-start-scribe');
+    if (startBtn) {
+      startBtn.addEventListener('click', () => {
+        stop();
+        advance();
+      });
+    }
+
     // Allow clicking individual step buttons
     if (workflowEl) {
       const stepEls = workflowEl.querySelectorAll('.workflow-step');
@@ -162,7 +171,7 @@ ${message}`;
         if (e.isIntersecting) start();
         else stop();
       });
-    }, { threshold: 0.25 });
+    }, { threshold: 0.15 });
 
     observer.observe(mockupEl);
 
@@ -170,7 +179,66 @@ ${message}`;
     applyStep(1);
   }
 
-  // Init Homepage AI Scribe Demo
+  // ===== COMPANY CAPABILITY ECOSYSTEM CONTROLLER =====
+  function initEcosystemController() {
+    const ecosystemEl = document.getElementById('companyEcosystem');
+    if (!ecosystemEl) return;
+
+    const nodes = ecosystemEl.querySelectorAll('.capability-node');
+    if (nodes.length === 0) return;
+
+    let step = 1;
+    let timerId = null;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function applyState(s) {
+      step = s;
+      if (s <= 4) {
+        nodes.forEach(n => {
+          n.classList.toggle('active', parseInt(n.dataset.node) === s);
+        });
+      } else {
+        // Step 5: Settle into all active
+        nodes.forEach(n => n.classList.add('active'));
+      }
+    }
+
+    function advance() {
+      const next = step >= 5 ? 1 : step + 1;
+      applyState(next);
+    }
+
+    function start() {
+      if (prefersReduced) {
+        applyState(5);
+        return;
+      }
+      if (!timerId) {
+        timerId = setInterval(advance, 1800);
+      }
+    }
+
+    function stop() {
+      if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+      }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) start();
+        else stop();
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(ecosystemEl);
+    applyState(1);
+  }
+
+  initEcosystemController();
+
+  // ===== RE-INIT PRODUCT SHOWCASE DEMOS =====
   initWorkflowController({
     mockupEl: document.getElementById('homeAIScribeMockup'),
     workflowEl: document.getElementById('scribeWorkflowSteps'),
@@ -178,14 +246,12 @@ ${message}`;
     progressFillEl: document.getElementById('homeGenProgress')
   });
 
-  // Init Homepage AapliPuja Demo
   initWorkflowController({
     mockupEl: document.getElementById('homeAapliPujaMockup'),
     workflowEl: document.getElementById('pujaWorkflowSteps'),
     isPuja: true
   });
 
-  // Init Product Detail Page AI Scribe Demo
   initWorkflowController({
     mockupEl: document.getElementById('aiScribeDetailMockup'),
     workflowEl: document.getElementById('detailAIScribeWorkflow'),
@@ -288,7 +354,7 @@ ${message}`;
 
   // ===== AAPLIPUJA LIGHTBOX CONTROLLER =====
   function initPoojaLightbox() {
-    const cards = document.querySelectorAll('.pooja-card[data-lightbox-src]');
+    const cards = document.querySelectorAll('.photo-card[data-lightbox-src], .pooja-card[data-lightbox-src]');
     if (cards.length === 0) return;
 
     let lightboxEl = document.getElementById('poojaLightbox');
@@ -300,15 +366,14 @@ ${message}`;
       lightboxEl.setAttribute('aria-label', 'Image preview');
       lightboxEl.innerHTML = `
         <div class="lightbox-content">
-          <button class="lightbox-close" id="lightboxClose" aria-label="Close image preview"><i data-lucide="x"></i></button>
-          <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image"><i data-lucide="chevron-left"></i></button>
-          <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image"><i data-lucide="chevron-right"></i></button>
+          <button class="lightbox-close" id="lightboxClose" aria-label="Close image preview">&times;</button>
+          <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#10094;</button>
+          <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">&#10095;</button>
           <img id="lightboxImg" src="" alt="Enlarged Pooja Experience">
           <div class="lightbox-caption" id="lightboxCaption"></div>
         </div>
       `;
       document.body.appendChild(lightboxEl);
-      if (window.lucide) lucide.createIcons();
     }
 
     const imgEl = lightboxEl.querySelector('#lightboxImg');
@@ -319,7 +384,7 @@ ${message}`;
 
     let items = Array.from(cards).map(card => ({
       src: card.dataset.lightboxSrc,
-      caption: card.dataset.caption || card.querySelector('.pooja-card-title')?.textContent || ''
+      caption: card.dataset.caption || card.querySelector('.photo-caption strong')?.textContent || ''
     }));
     let currentIndex = 0;
 
@@ -340,12 +405,18 @@ ${message}`;
     }
 
     cards.forEach((card, idx) => {
-      card.addEventListener('click', () => openAt(idx));
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        openAt(idx);
+      });
     });
 
+    window.openLightbox = openAt;
+
     if (closeBtn) closeBtn.addEventListener('click', close);
-    if (prevBtn) prevBtn.addEventListener('click', () => openAt(currentIndex - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => openAt(currentIndex + 1));
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); openAt(currentIndex - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); openAt(currentIndex + 1); });
 
     lightboxEl.addEventListener('click', (e) => {
       if (e.target === lightboxEl) close();
@@ -396,6 +467,104 @@ ${message}`;
   }
 
   initRoiCalculator();
+
+  // ===== AAPLIPUJA MOBILE DEMO 6-STEP CONTROLLER =====
+  function initPujaMobileDemo() {
+    const screensContainer = document.getElementById('pujaDemoScreens');
+    const dotsContainer = document.getElementById('pujaDemoProgress');
+    if (!screensContainer || !dotsContainer) return;
+
+    const totalSteps = 6;
+    let currentStep = 1;
+    let timerId = null;
+
+    function setStep(step) {
+      currentStep = step;
+      const screens = screensContainer.querySelectorAll('.demo-screen');
+      const dots = dotsContainer.querySelectorAll('.step-dot');
+
+      screens.forEach(s => s.classList.toggle('active', parseInt(s.dataset.step) === step));
+      dots.forEach(d => d.classList.toggle('active', parseInt(d.dataset.step) === step));
+    }
+
+    function advance() {
+      const next = currentStep >= totalSteps ? 1 : currentStep + 1;
+      setStep(next);
+    }
+
+    function startAuto() {
+      if (!timerId) {
+        timerId = setInterval(advance, 2200);
+      }
+    }
+
+    function stopAuto() {
+      if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+      }
+    }
+
+    const dots = dotsContainer.querySelectorAll('.step-dot');
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const step = parseInt(dot.dataset.step);
+        if (step) {
+          stopAuto();
+          setStep(step);
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) startAuto();
+        else stopAuto();
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(screensContainer);
+    setStep(1);
+  }
+
+  initPujaMobileDemo();
+
+  // ===== FAQ ACCORDION CONTROLLER =====
+  function initFaqAccordion() {
+    const triggers = document.querySelectorAll('.faq-trigger');
+    triggers.forEach(trig => {
+      trig.addEventListener('click', () => {
+        const item = trig.closest('.faq-item');
+        if (!item) return;
+        const isOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.faq-item.open').forEach(openItem => {
+          if (openItem !== item) openItem.classList.remove('open');
+        });
+
+        item.classList.toggle('open', !isOpen);
+      });
+    });
+  }
+
+  initFaqAccordion();
+
+  // ===== MOBILE STICKY CTA SHOW/HIDE =====
+  function initStickyCta() {
+    const stickyCta = document.getElementById('mobileStickyCta');
+    if (!stickyCta) return;
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        stickyCta.style.display = 'block';
+      } else {
+        stickyCta.style.display = 'none';
+      }
+    }, { passive: true });
+  }
+
+  initStickyCta();
 });
+
 
 
