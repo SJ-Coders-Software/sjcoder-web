@@ -286,6 +286,81 @@ ${message}`;
     startAutoPlay();
   }
 
+  // ===== AAPLIPUJA LIGHTBOX CONTROLLER =====
+  function initPoojaLightbox() {
+    const cards = document.querySelectorAll('.pooja-card[data-lightbox-src]');
+    if (cards.length === 0) return;
+
+    let lightboxEl = document.getElementById('poojaLightbox');
+    if (!lightboxEl) {
+      lightboxEl = document.createElement('div');
+      lightboxEl.id = 'poojaLightbox';
+      lightboxEl.className = 'pooja-lightbox';
+      lightboxEl.setAttribute('role', 'dialog');
+      lightboxEl.setAttribute('aria-label', 'Image preview');
+      lightboxEl.innerHTML = `
+        <div class="lightbox-content">
+          <button class="lightbox-close" id="lightboxClose" aria-label="Close image preview"><i data-lucide="x"></i></button>
+          <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image"><i data-lucide="chevron-left"></i></button>
+          <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image"><i data-lucide="chevron-right"></i></button>
+          <img id="lightboxImg" src="" alt="Enlarged Pooja Experience">
+          <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+      `;
+      document.body.appendChild(lightboxEl);
+      if (window.lucide) lucide.createIcons();
+    }
+
+    const imgEl = lightboxEl.querySelector('#lightboxImg');
+    const captionEl = lightboxEl.querySelector('#lightboxCaption');
+    const closeBtn = lightboxEl.querySelector('#lightboxClose');
+    const prevBtn = lightboxEl.querySelector('#lightboxPrev');
+    const nextBtn = lightboxEl.querySelector('#lightboxNext');
+
+    let items = Array.from(cards).map(card => ({
+      src: card.dataset.lightboxSrc,
+      caption: card.dataset.caption || card.querySelector('.pooja-card-title')?.textContent || ''
+    }));
+    let currentIndex = 0;
+
+    function openAt(index) {
+      if (index < 0) index = items.length - 1;
+      if (index >= items.length) index = 0;
+      currentIndex = index;
+
+      imgEl.src = items[currentIndex].src;
+      captionEl.textContent = items[currentIndex].caption;
+      lightboxEl.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      lightboxEl.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('click', () => openAt(idx));
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (prevBtn) prevBtn.addEventListener('click', () => openAt(currentIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => openAt(currentIndex + 1));
+
+    lightboxEl.addEventListener('click', (e) => {
+      if (e.target === lightboxEl) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightboxEl.classList.contains('active')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') openAt(currentIndex - 1);
+      if (e.key === 'ArrowRight') openAt(currentIndex + 1);
+    });
+  }
+
+  initPoojaLightbox();
+
   initHeroCarousel();
 
   // ===== INTERACTIVE ROI CALCULATOR =====
