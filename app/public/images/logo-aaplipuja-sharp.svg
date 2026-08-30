@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 52" width="280" height="52" fill="none">
+  <!-- Left Graphic Icon: Traditional Framed Diya / Diamond Star -->
+  <g transform="translate(4, 2)">
+    <!-- Outer Gold Corner Border Frame -->
+    <rect x="1" y="1" width="46" height="46" rx="4" stroke="#f2cd6b" stroke-width="2.5" fill="rgba(255, 122, 26, 0.12)" />
+    <path d="M 1 12 L 1 1 L 12 1" stroke="#ff7a1a" stroke-width="3.5" fill="none" stroke-linecap="round" />
+    <path d="M 36 1 L 47 1 L 47 12" stroke="#ff7a1a" stroke-width="3.5" fill="none" stroke-linecap="round" />
+    <path d="M 47 36 L 47 47 L 36 47" stroke="#ff7a1a" stroke-width="3.5" fill="none" stroke-linecap="round" />
+    <path d="M 12 47 L 1 47 L 1 36" stroke="#ff7a1a" stroke-width="3.5" fill="none" stroke-linecap="round" />
+
+    <!-- Center Four-Point Spark / Diamond Star -->
+    <path d="M 24 9 C 24 18 15 24 6 24 C 15 24 24 30 24 39 C 24 30 33 24 42 24 C 33 24 24 18 24 9 Z" fill="#fff8ee" />
+    <circle cx="24" cy="24" r="3" fill="#d4a017" />
+  </g>
+
+  <!-- Vertical Divider Line -->
+  <line x1="62" y1="8" x2="62" y2="42" stroke="rgba(242, 205, 107, 0.35)" stroke-width="1.5" />
+
+  <!-- Typography Right Side -->
+  <text x="74" y="27" font-family="'Yatra One', 'Poppins', Georgia, serif" font-weight="800" font-size="22" letter-spacing="1" fill="#fff8ee">AapliPuja</text>
+  <text x="74" y="42" font-family="'Poppins', sans-serif" font-weight="700" font-size="9" letter-spacing="2" fill="#ffb067">BY SJ CODERS</text>
+</svg>
