@@ -12,6 +12,8 @@ export default defineConfig({
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         careers: fileURLToPath(new URL('./careers.html', import.meta.url)),
+        aiScribe: fileURLToPath(new URL('./ai-scribe.html', import.meta.url)),
+        aapliPuja: fileURLToPath(new URL('./aaplipuja.html', import.meta.url)),
       },
     },
   },
