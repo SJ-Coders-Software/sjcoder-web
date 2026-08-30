@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
+  base: './',
   build: {
     // Output lands directly at the repo root so a plain `git checkout`
     // (which is all some cPanel deployments reliably do) already serves
