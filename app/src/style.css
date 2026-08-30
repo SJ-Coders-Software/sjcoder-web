@@ -2278,29 +2278,46 @@ select {
   overflow: hidden;
   display: flex;
   align-items: center;
+  transition: background 0.6s ease;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(245, 158, 11, 0.15), transparent 70%);
+  transition: background 0.6s ease-in-out;
+  pointer-events: none;
+}
+
+.hero[data-theme="amber"] .hero-bg::after {
+  background: radial-gradient(circle at 70% 30%, rgba(245, 158, 11, 0.18), transparent 70%);
+}
+
+.hero[data-theme="violet"] .hero-bg::after {
+  background: radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.18), transparent 70%);
+}
+
+.hero[data-theme="cyan"] .hero-bg::after {
+  background: radial-gradient(circle at 70% 30%, rgba(6, 182, 212, 0.18), transparent 70%);
 }
 
 .hero-slides-wrapper {
   position: relative;
   width: 100%;
-  min-height: 480px;
-  height: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   align-items: center;
 }
 
 .hero-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
+  grid-area: 1 / 1 / 2 / 2;
   width: 100%;
-  height: 100%;
   opacity: 0;
   visibility: hidden;
   transform: scale(0.98);
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
-  display: flex;
-  align-items: center;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
   pointer-events: none;
 }
 
@@ -2453,28 +2470,16 @@ body.theme-clinical .gradient-text {
 
   .hero-carousel-section {
     min-height: auto;
-    padding-top: 120px;
-    padding-bottom: 60px;
+    padding-top: 110px;
+    padding-bottom: 50px;
     height: auto;
-  }
-
-  .hero-slides-wrapper {
-    min-height: 580px;
-  }
-
-  .hero-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
   }
 
   .hero-slide .container {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 28px;
-    padding: 0 36px;
+    gap: 24px;
+    padding: 0 24px;
   }
 
   .hero-content {
@@ -2544,16 +2549,145 @@ body.theme-clinical .gradient-text {
   }
 }
 
-/* Tablet Portrait & Mobile Landscape (768px) */
+/* ==========================================================================
+   GLOBAL RESPONSIVE RULES & MEDIA QUERIES (MOBILE-FIRST)
+   ========================================================================== */
+html, body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img, svg, video, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tablet Landscape & Below (992px) */
+@media (max-width: 992px) {
+  .container {
+    max-width: 720px;
+    padding: 0 20px;
+  }
+
+  .navbar {
+    padding: 12px 0;
+  }
+
+  .hero-carousel-section {
+    min-height: auto;
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+
+  .hero-slide .container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 24px;
+    padding: 0 16px;
+  }
+
+  .hero-content {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .hero-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-visual {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .hero-visual img {
+    max-height: 240px;
+    margin: 0 auto;
+  }
+
+  .product-showcase-item,
+  .product-showcase-item.reverse {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    text-align: center;
+  }
+
+  .product-info-col { order: 1; }
+  .product-ui-col { order: 2; }
+
+  .product-badge-pill {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .product-cta-group {
+    justify-content: center;
+  }
+
+  .about .container {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    text-align: center;
+  }
+
+  .about-content {
+    margin: 0 auto;
+  }
+
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .services-grid,
+  .why-grid,
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet Portrait & Mobile Devices (768px) */
 @media (max-width: 768px) {
   .container {
-    max-width: 540px;
+    max-width: 100%;
     padding: 0 16px;
   }
 
   .logo-img {
-    height: 36px;
+    height: 32px;
     width: auto;
+  }
+
+  .nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 15, 30, 0.75);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 998;
+  }
+
+  .nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  body.menu-open {
+    overflow: hidden !important;
   }
 
   .nav-links {
@@ -2562,14 +2696,15 @@ body.theme-clinical .gradient-text {
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: var(--bg-secondary);
+    background: #0f172a;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
-    padding: 40px 24px;
-    transition: var(--transition);
+    padding: 85px 24px 40px;
+    overflow-y: auto;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     border-left: 1px solid var(--border-color);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
     z-index: 999;
   }
 
@@ -2583,64 +2718,86 @@ body.theme-clinical .gradient-text {
   }
 
   .carousel-btn {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
+    opacity: 0.6;
   }
-  .carousel-btn.prev-btn { left: 8px; }
-  .carousel-btn.next-btn { right: 8px; }
-
-  .hero-slides-wrapper {
-    min-height: 620px;
-  }
+  .carousel-btn.prev-btn { left: 4px; }
+  .carousel-btn.next-btn { right: 4px; }
 
   .section {
-    padding: 60px 0;
+    padding: 50px 0;
   }
 
   .section-title {
-    font-size: clamp(1.75rem, 5vw, 2.4rem);
+    font-size: clamp(1.5rem, 5vw, 2.1rem);
   }
 
   .section-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
-  /* Product Showcase Mobile Card Layout */
+  /* Hero Section Mobile Polish */
+  .hero-content h1 {
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem) !important;
+    line-height: 1.25;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  /* Product Showcase Cards on Mobile */
   .product-showcase-item,
   .product-showcase-item.reverse {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
     text-align: center;
-    background: rgba(17, 24, 39, 0.45);
+    background: rgba(17, 24, 39, 0.5);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 24px 16px;
-    margin-bottom: 32px;
+    padding: 20px 14px;
+    margin-bottom: 28px;
   }
 
   .product-tag {
-    margin: 0 auto 12px;
-    font-size: 0.78rem;
+    margin: 0 auto 10px;
+    font-size: 0.76rem;
   }
 
   .product-title {
-    font-size: clamp(1.35rem, 4vw, 1.8rem);
+    font-size: clamp(1.25rem, 4vw, 1.6rem);
     line-height: 1.3;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .product-desc {
-    font-size: 0.88rem;
-    line-height: 1.6;
-    margin-bottom: 16px;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    margin-bottom: 14px;
   }
 
   .product-ctas {
     width: 100%;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    margin-bottom: 18px;
+    flex-direction: column;
   }
 
   .product-ctas .btn {
@@ -2650,87 +2807,79 @@ body.theme-clinical .gradient-text {
     justify-content: center;
   }
 
-  /* Compact Workflow 5-Step Bar */
+  /* Workflow Steps Bar on Mobile */
   .workflow-steps-bar {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 4px;
-    padding: 6px 8px;
-    background: rgba(15, 23, 42, 0.8);
+    gap: 6px;
+    padding: 8px;
+    background: rgba(15, 23, 42, 0.85);
     border: 1px solid var(--border-color);
-    border-radius: 30px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-md);
+    overflow: visible;
   }
 
   .workflow-step {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4px;
-    padding: 5px 8px;
-    font-size: 0.72rem;
+    padding: 6px 10px;
+    font-size: 0.74rem;
     border-radius: 20px;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.05);
     transition: var(--transition);
+    cursor: pointer;
     white-space: nowrap;
   }
 
   .workflow-step.active {
     background: var(--gradient-accent);
     color: #fff;
+    font-weight: 600;
   }
 
-  .mockup-browser {
-    width: 100%;
-    max-width: 100%;
+  .step-arrow {
+    display: none;
+  }
+
+  .mockup-browser,
+  .mockup-mobile {
+    width: 100% !important;
+    max-width: 100% !important;
     border-radius: var(--radius-md);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   }
 
   .mockup-header {
     padding: 8px 12px;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
 
   .mockup-body {
-    padding: 12px;
-    min-height: 380px;
-    max-height: 420px;
+    padding: 10px;
+    min-height: 360px;
+    max-height: 440px;
     overflow-y: auto;
-    padding: 12px;
   }
 
   .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .footer-brand {
-    grid-column: span 2;
+    grid-column: span 1;
   }
 }
 
-/* Mobile Portrait (576px) */
+/* Small Mobile & Phones (576px & down) */
 @media (max-width: 576px) {
   .container {
     width: 100%;
-    padding: 0 14px;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-    padding: 12px 20px;
-    font-size: 0.9rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    width: 100%;
+    padding: 0 12px;
   }
 
   .solutions-grid,
@@ -2739,19 +2888,20 @@ body.theme-clinical .gradient-text {
   .portfolio-grid,
   .capabilities-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .stats .container {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .stat-card {
-    padding: 16px;
+    padding: 14px 10px;
   }
 
   .stat-number {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .form-row {
@@ -2766,13 +2916,13 @@ body.theme-clinical .gradient-text {
 
   .soap-content-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 
   .consultation-init-card {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 14px;
   }
 
   .init-action-area {
@@ -2783,15 +2933,10 @@ body.theme-clinical .gradient-text {
     width: 100%;
   }
 
-  .recording-header {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-  }
-
+  .recording-header,
   .soap-header {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     align-items: flex-start;
   }
 
@@ -2806,67 +2951,9 @@ body.theme-clinical .gradient-text {
     align-items: flex-start;
   }
 
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .footer-brand {
-    grid-column: span 1;
-  }
-
   .footer-bottom {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     text-align: center;
-  }
-}
-
-/* Small Mobile (380px & down) */
-@media (max-width: 380px) {
-  .hero-slides-wrapper {
-    min-height: 660px;
-  }
-
-  .hero-slide .container {
-    padding: 0 12px;
-  }
-
-  .hero-badge {
-    font-size: 0.72rem;
-    padding: 4px 10px;
-  }
-
-  .section-title {
-    font-size: 1.45rem;
-  }
-
-  .carousel-btn {
-    width: 32px;
-    height: 32px;
-  }
-
-  .carousel-btn.prev-btn { left: 4px; }
-  .carousel-btn.next-btn { right: 4px; }
-
-  .carousel-dots {
-    bottom: 12px;
-  }
-
-  .carousel-dots .dot {
-    width: 8px;
-    height: 8px;
-  }
-
-  .carousel-dots .dot.active {
-    width: 24px;
-  }
-
-  .workflow-step .step-text {
-    display: none;
-  }
-
-  .workflow-step {
-    padding: 6px;
   }
 }
