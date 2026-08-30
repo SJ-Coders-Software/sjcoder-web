@@ -4040,15 +4040,90 @@ iframe {
 
   .hero-split,
   .product-showcase-large,
+  .product-showcase-large.reverse,
   .contact-wrapper {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr !important;
+    gap: 36px;
+    padding: 32px 24px;
+  }
+
+  .product-showcase-large.reverse .showcase-content {
+    order: 1;
+  }
+
+  .product-showcase-large.reverse .showcase-visual {
+    order: 2;
   }
 
   .services-outcomes-grid,
   .case-studies-grid,
   .differentiators-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-showcase-large,
+  .product-showcase-large.reverse {
+    display: block;
+    padding: 28px 20px;
+    border-radius: 20px;
+    margin-top: 32px !important;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .product-showcase-large .showcase-visual {
+    display: none !important;
+  }
+
+  .showcase-content {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .product-showcase-title {
+    font-size: 1.4rem;
+    line-height: 1.35;
+    margin-bottom: 14px;
+    color: #ffffff;
+  }
+
+  .product-showcase-desc {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 20px;
+    color: #e2e8f0;
+  }
+
+  .product-highlights {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .highlight-item {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: #f8fafc;
+  }
+
+  .product-actions {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .product-actions .btn {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: normal !important;
+    font-size: 0.92rem;
+    padding: 14px 20px;
+    box-sizing: border-box;
+    border-radius: 12px;
   }
 }
 
